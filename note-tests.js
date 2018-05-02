@@ -1,5 +1,13 @@
 
 (function(exports){
+  const Assert = function {};
+  Assert.prototype.isTrue = function (assertionToCheck) {
+    if(!assertionToCheck) {
+      throw new Error("Assertion failed: " + assertionToCheck);
+    } else {
+      console.log("Test for " + assertionToCheck + "passed");
+    }
+  };
   function testDisplayFunction() {
     var note = new Note("my first note");
     if (note.display() !== "my first note"){
@@ -113,10 +121,7 @@
      } else if (note2.id == note3.id) {
        throw new Error ("IDs are not unique")
      } else {
-       console.log(note1.id);
-       console.log(note2.id);
-       console.log(note3.id);
-       console.log(note4.id);
+
 
        console.log("9th test passed")
      }
@@ -125,4 +130,27 @@
    }
    testUniqueID();
 
+   function testDisplayNoteURL() {
+     var note1 = new Note("some text");
+     var note2 = new Note("some different text");
+     var note3 = new Note("more different text");
+     var note4 = new Note("more different text");
+     list.store(note1);
+     list.store(note2);
+     list.store(note3);
+     list.store(note4);
+     var listView = new ListView(list);
+     var actual = listView.display().includes('<a href="http://localhost:8000/note/1">');
+     var expected = true;
+     if (actual === expected) {
+       console.log("10th test passed");
+     }
+     else {
+       throw new Error ("Link is not displayed");
+     }
+
+
+
+   }
+   testDisplayNoteURL();
 })(this);
