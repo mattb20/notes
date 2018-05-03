@@ -1,13 +1,13 @@
 
 (function(exports){
-  const Assert = function {};
-  Assert.prototype.isTrue = function (assertionToCheck) {
-    if(!assertionToCheck) {
-      throw new Error("Assertion failed: " + assertionToCheck);
-    } else {
-      console.log("Test for " + assertionToCheck + "passed");
-    }
-  };
+  // const Assert = function {};
+  // Assert.prototype.isTrue = function (assertionToCheck) {
+  //   if(!assertionToCheck) {
+  //     throw new Error("Assertion failed: " + assertionToCheck);
+  //   } else {
+  //     console.log("Test for " + assertionToCheck + "passed");
+  //   }
+  // };
   function testDisplayFunction() {
     var note = new Note("my first note");
     if (note.display() !== "my first note"){
@@ -52,7 +52,7 @@
     list.store(note2);
     list.store(note3);
     var listView = new ListView(list)
-    if (listView.display()!== "<ul><li><div>second note</div></li><li><div>third note</div></li></ul>") {
+    if (listView.display()!== '<ul><li><div><a href="http://localhost:8080/note/1"</a>second note</div></li><li><div>third note</div></li></ul>') {
       throw new Error ("testfailed. list not in html format")
     }
     else {console.log("4th test passed");
@@ -60,25 +60,14 @@
   };
   testListView();
 
-  function testGetHTML() {
-    var notecontroller = new NoteController();
 
-    notecontroller.getHTML();
-
-    if (document.getElementById("app").innerHTML !== "<ul><li><div>Favourite drink: sel</div></li></ul>"){
-          throw new Error ("testfailed. innerHTML not displaying")
-    }
-    else {console.log("5th test passed");
-    }
-  };
-  testGetHTML();
 
    function testSingleNote() {
      var singlenoteview = new SingleNoteView(note = new Note("this is a note"));
      if (singlenoteview.display() != "<div>this is a note</div>") {
-       throw new Error ("test failed. string does not match note model")
+       throw new Error ("test failed. string is not inside div element")
      }
-     else {console.log("6th test passed");
+     else {console.log("5th test passed");
      }
    };
    testSingleNote();
@@ -131,6 +120,7 @@
    testUniqueID();
 
    function testDisplayNoteURL() {
+     var list = new List();
      var note1 = new Note("some text");
      var note2 = new Note("some different text");
      var note3 = new Note("more different text");
@@ -140,7 +130,7 @@
      list.store(note3);
      list.store(note4);
      var listView = new ListView(list);
-     var actual = listView.display().includes('<a href="http://localhost:8000/note/1">');
+     var actual = listView.display().includes('<a href="http://localhost:8080/note/1">');
      var expected = true;
      if (actual === expected) {
        console.log("10th test passed");
